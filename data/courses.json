@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "name": "Exclusive English Course ",
+    "price": 899.9,
+    "lectures": "80",
+    "rating": "⭐⭐⭐⭐⭐",
+    "description": "This Exclusive English course is entirely designed to develop one's English skill in every way. Whether its grammar's purpose or writing or speaking. Everything is covered exclusively that will help every learner's to learn effectively . The purpose of this course is to make the learner an effective speaker, creative writer and also a master in grammar..",
+    "feature": "I have prepared the curriculum in such a way that this exclusive course will be parted in three major segments and all the segments will be covered in an effective way. I sincerely hope, this is going to be an enjoyable journey for all of us. Good luck!",
+    "image": "https://i.ibb.co/LgH1g86/Exclusive-English-Course.png"
+  },
+  {
+    "id": 2,
+    "name": "Grammar Boss",
+    "price": 579.9,
+    "lectures": "80",
+    "rating": "⭐⭐⭐⭐⭐",
+    "description": "Grammar Boss We all want to speak English more or less. That's why we get admission in various coaching centers. The funny thing is that we insist on accent before we learn the rules or structure of English. Which should not be done at all. The paper is such that I need a car we call I'm a car means trying to keep the accent correct by making grammar mistakes inside! But I hope you don't want to be laughed at by doing this. So in my new course I will teach you how to become the Boss of grammar in the easiest and fastest way. Which is the most important thing to learn English and thus speaking English should not be a laughing stock. So definitely don't waste the time of this lockdown and buy the Grammar Boss course today and overcome your weakness at home.",
+    "feature": "Grammar A to Z 1.Tense (Basic to Advance) 2.Preposition with definition 3.Article 4.Common grammatical mistakes 5.Exams",
+    "image": "https://i.ibb.co/5n6JRpT/Grammar-Boss.png"
+  },
+  {
+    "id": 3,
+    "name": "Academic IELTS - Basic to Advanced",
+    "price": 599.9,
+    "lectures": "80",
+    "rating": "⭐⭐⭐⭐⭐",
+    "description": "ELTS Academic Test is a must for any student who is looking forward to pursuing higher education abroad. Most international universities prefer a band score of 6.5 and above. In this course, I have shared secret formula to excel at your IELTS Writing Task 1 & 2. This includes step by step tutorial on how to avoid getting a band score of 6 or less. IELTS Reading, Speaking & Listening modules have been organized in such a way that you will not miss any of the question types in your exam.",
+    "feature": "*Writing Task 1 and Writing Task 2 Formula with all essay and task types explained *All types of Reading passages explained with live practice *Listening question types with tips *Analysis of Speaking parts with special hacks *Advanced grammar rules for scoring band 7 or higher in Writing",
+    "image": "https://i.ibb.co/gwJRkwZ/Academic-IELTS.png"
+  },
+  {
+    "id": 4,
+    "name": "Golpe Golpe Phonetics",
+    "price": 699.9,
+    "lectures": "80",
+    "rating": "⭐⭐⭐⭐⭐",
+    "description": "Learn the accurate way of English Pronunciation through English Phonetic!! A popular course with a focus on the theory of phonetics and phonology, with fantastic ideas for how to help yourself with pronunciation. Specific sections deal with Speech Production mechanics and how we articulate sounds, before we look at the areas of vowel and consonant production. We deal with sentence stress and intonation, how we articulate sounds and how we help our students if they have a particular pronunciation problem.",
+    "feature": ">> 30 hours of course materials and video >> Focus on teaching pronunciation, phonetics and phonology >> Personal, dedicated tutor support + 3 months FREELANCING Live Class >> Access to a student forum and online teaching resources >> Study online from tablet/computer or offline, all for just £85",
+    "image": "https://i.ibb.co/dm7XkFQ/Golpe-Golpe-Phonetics.png"
+  },
+  {
+    "id": 5,
+    "name": "Egnlish Grammer For All",
+    "price": 399.9,
+    "lectures": "80",
+    "rating": "⭐⭐⭐⭐⭐",
+    "description": "If you are a job seeker, a student, or preparing for a competitive exam then this course is perfect for you. This course emphasizes grammar and if you want to brush up on your skills then this course is for you. From beginner to advance, this course can really help you achieve your dream.",
+    "feature": "If you want to clear your competitive exam, you have to gain good marks. Many students fail because they don't perform well in the exam. Most of them fail in English and to avoid it, this course can really help you. So I hope this course will really help you to increase your knowledge.",
+    "image": "https://i.ibb.co/1GjvRCX/Egnlish-Grammer-For-All.png"
+  },
+  {
+    "id": 6,
+    "name": "Spoken English Course",
+    "price": 999.9,
+    "lectures": "80",
+    "rating": "⭐⭐⭐⭐⭐",
+    "description": "If you want to Speak English Fluently and Naturally, this Online ENGLISH Course will help you to reach your Goal. A step by step Intensive Guide with Effective LESSONS will take you to Advanced from Beginner level.",
+    "feature": "n this course you're going to be learning about Basic English Speaking Structures, Increasing Listening & Writing Skills, Basic Phonetics, Daily Necessary Conversation, American English, Business English, Idiomatic Expression, Polite & Diplomatic Expression",
+    "image": "https://i.ibb.co/3dSqVJC/Spoken-English-Course.png"
+  }
+]
