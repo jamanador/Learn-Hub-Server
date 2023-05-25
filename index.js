@@ -24,7 +24,7 @@ function verifyJWT(req, res, next) {
   const token = authHeader.split(" ")[1];
   jwt.verify(token, process.env.access_Token, function (err, decoded) {
     if (err) {
-      res.status(403).send({ message: "Unauthorized Access" });
+      res.status(403).send({ message: "Forbidden Access" });
     }
     req.decoded = decoded;
     next();
@@ -68,7 +68,7 @@ app.post("/orders", async (req, res) => {
   }
 });
 
-app.get("/orders", verifyJWT, async (req, res) => {
+app.get("/orders", async (req, res) => {
   try {
     const email = req.query.email;
     const query = { customerEmail: email };
@@ -78,7 +78,22 @@ app.get("/orders", verifyJWT, async (req, res) => {
     res.send(error.message);
   }
 });
-
+app.delete("/orders/:id", async (req, res) => {
+  try {
+    const id = req.params.id;
+    const query = { _id: ObjectId(id) };
+    const result = await ordersCollection.deleteOne(query);
+    res.send({
+      success: true,
+      data: result,
+    });
+  } catch (error) {
+    res.send({
+      success: false,
+      error: error.message,
+    });
+  }
+});
 app.post("/users", async (req, res) => {
   try {
     const user = req.body;
@@ -95,6 +110,22 @@ app.get("/users", async (req, res) => {
     res.send(result);
   } catch (error) {
     res.send(error.message);
+  }
+});
+app.get("/users/admin/:email", async (req, res) => {
+  try {
+    const email = req.params.email;
+    const query = { email: email };
+    const user = await userCollection.findOne(query);
+    res.send({
+      sucsess: true,
+      isAdmin: user?.role === "admin",
+    });
+  } catch (error) {
+    res.send({
+      sucsess: false,
+      error: error.message,
+    });
   }
 });
 app.get("/showservices", async (req, res) => {
