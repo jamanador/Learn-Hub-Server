@@ -78,6 +78,14 @@ app.get("/orders", async (req, res) => {
     res.send(error.message);
   }
 });
+app.get("/orders/:id", async (req, res) => {
+  try {
+    const id = req.params.id;
+    const query = { _id: ObjectId(id) };
+    const result = await ordersCollection.findOne(query);
+    res.send(result);
+  } catch (error) {}
+});
 app.delete("/orders/:id", async (req, res) => {
   try {
     const id = req.params.id;
