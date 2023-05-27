@@ -61,6 +61,18 @@ app.get("/jwt", async (req, res) => {
 app.post("/orders", async (req, res) => {
   try {
     const product = req.body;
+    const query = {
+      coursesId: product.coursesId,
+      customerEmail: product.customerEmail,
+    };
+    const alreadyBooked = await ordersCollection.find(query).toArray();
+    if (alreadyBooked.length) {
+      return res.send({
+        sucess: false,
+        message: `You already have ${product.courseName} Course on Cart`,
+      });
+    }
+    console.log(product);
     const result = await ordersCollection.insertOne(product);
     res.send(result);
   } catch (error) {
