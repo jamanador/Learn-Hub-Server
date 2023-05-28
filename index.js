@@ -72,7 +72,6 @@ app.post("/orders", async (req, res) => {
         message: `You already have ${product.courseName} Course on Cart`,
       });
     }
-    console.log(product);
     const result = await ordersCollection.insertOne(product);
     res.send(result);
   } catch (error) {
@@ -119,9 +118,7 @@ app.post("/users", async (req, res) => {
     const user = req.body;
     const result = await userCollection.insertOne(user);
     res.send(result);
-  } catch (error) {
-    console.log(error.name);
-  }
+  } catch (error) {}
 });
 app.get("/users", async (req, res) => {
   try {
@@ -184,7 +181,19 @@ app.get("/courses/:id", async (req, res) => {
   const result = await coursesCollection.findOne(filter);
   res.send(result);
 });
-
+app.delete("/courses/:id", async (req, res) => {
+  try {
+    const id = req.params.id;
+    const query = { _id: ObjectId(id) };
+    console.log(query);
+    const result = await coursesCollection.deleteOne(query);
+    if (result.acknowledged) {
+      res.send(result);
+    }
+  } catch (error) {
+    res.send(error.message);
+  }
+});
 app.listen(port, () => {
   console.log("This port runnig on", port);
 });
