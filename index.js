@@ -1,13 +1,18 @@
 const express = require("express");
 const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
 const app = express();
+const SSLCommerzPayment = require("sslcommerz-lts");
 const cors = require("cors");
-const jwt = require("jsonwebtoken");
 require("dotenv").config();
+const jwt = require("jsonwebtoken");
 const port = process.env.port || 5000;
 // middleware use
 app.use(cors());
 app.use(express.json());
+
+const store_id = process.env.store_Id;
+const store_passwd = process.env.store_Pass;
+const is_live = false; //true for live, false for sandbox
 
 const uri = `mongodb+srv://${process.env.learnHubDb}:${process.env.learnHubDbPass}@cluster0.chgrg5k.mongodb.net/?retryWrites=true&w=majority`;
 const client = new MongoClient(uri, {
@@ -56,6 +61,77 @@ app.get("/jwt", async (req, res) => {
     return res.send({ accessToken: token });
   }
   res.status(403).send({ accessToken: "forbidden Acccess" });
+});
+
+const tran_id = new ObjectId().toString();
+
+app.post("/confirmorders", async (req, res) => {
+  const course = await ordersCollection.findOne({
+    _id: new ObjectId(req.body._id),
+  });
+  const order = req.body;
+  const data = {
+    total_amount: order.price,
+    currency: "BDT",
+    tran_id: tran_id, // use unique tran_id for each api call
+    success_url: `http://localhost:5000/confirmpayment/success/${tran_id}`,
+    fail_url: "http://localhost:3030/fail",
+    cancel_url: "http://localhost:3030/cancel",
+    ipn_url: "http://localhost:3030/ipn",
+    shipping_method: "Courier",
+    product_name: order.courseName,
+    product_category: "Course",
+    product_profile: "general",
+    cus_name: order.customer,
+    cus_email: order.customerEmail,
+    cus_add1: order.adress,
+    cus_add2: "Dhaka",
+    cus_city: "Dhaka",
+    cus_state: "Dhaka",
+    cus_postcode: "1000",
+    cus_country: "Bangladesh",
+    cus_phone: order.phone,
+    cus_fax: "01711111111",
+    ship_name: "Customer Name",
+    ship_add1: "Dhaka",
+    ship_add2: "Dhaka",
+    ship_city: "Dhaka",
+    ship_state: "Dhaka",
+    ship_postcode: 1000,
+    ship_country: "Bangladesh",
+  };
+
+  // console.log(data);
+  const sslcz = new SSLCommerzPayment(store_id, store_passwd, is_live);
+  sslcz.init(data).then((apiResponse) => {
+    // Redirect the user to payment gateway
+    let GatewayPageURL = apiResponse.GatewayPageURL;
+    res.send({ url: GatewayPageURL });
+    const finalOrder = {
+      course,
+      paidStatus: false,
+      transcationId: tran_id,
+    };
+    const result = ordersCollection.insertOne(finalOrder);
+    console.log(result);
+  });
+
+  app.post("/confirmpayment/success/:tranId", async (req, res) => {
+    console.log(req.params.tranId);
+    const result = await ordersCollection.updateOne(
+      { transcationId: req.params.tranId },
+      {
+        $set: {
+          paidStatus: true,
+        },
+      }
+    );
+    if (result.modifiedCount > 0) {
+      res.redirect(
+        `http://localhost:3000/confirmpayment/success/${req.params.tranId}`
+      );
+    }
+  });
 });
 
 app.post("/orders", async (req, res) => {
@@ -129,6 +205,14 @@ app.get("/users", async (req, res) => {
     res.send(error.message);
   }
 });
+app.delete("/users/admin/:id", verifyJWT, async (req, res) => {
+  try {
+    const id = req.params.id;
+    const query = { _id: ObjectId(id) };
+    const result = await userCollection.deleteOne(query);
+    res.send(result);
+  } catch (error) {}
+});
 app.get("/users/admin/:email", async (req, res) => {
   try {
     const email = req.params.email;
@@ -181,11 +265,10 @@ app.get("/courses/:id", async (req, res) => {
   const result = await coursesCollection.findOne(filter);
   res.send(result);
 });
-app.delete("/courses/:id", async (req, res) => {
+app.delete("/courses/:id", verifyJWT, async (req, res) => {
   try {
     const id = req.params.id;
     const query = { _id: ObjectId(id) };
-    console.log(query);
     const result = await coursesCollection.deleteOne(query);
     if (result.acknowledged) {
       res.send(result);

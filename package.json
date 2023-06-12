@@ -4,7 +4,9 @@
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "jsonwebtoken": "^8.5.1",
-    "mongodb": "^4.12.0"
+    "mongodb": "^4.12.0",
+    "sslcommerz-lts": "^1.1.0",
+    "stripe": "^12.8.0"
   },
   "name": "elearning-platform-learn-hub-server",
   "version": "1.0.0",
